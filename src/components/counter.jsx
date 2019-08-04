@@ -24,15 +24,12 @@ class Counter extends Component {
   }
 
   render() {
-    //Use let if you're modifying the variable
-    let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
     //js automatically inserts a ; if you simply type return.
     //So what js will see is return ; if you dont have anything in front of it
     return (
       <div>
         <img src={this.state.imageUrl} alt="" />
-        <span className={classes}>{this.formatCount()}</span>
+        <span className={this.getBadgeClasses}>{this.formatCount()}</span>
         <button className="btn btn-secondary btn-sm">Increment</button>
       </div>
     );
@@ -42,6 +39,12 @@ class Counter extends Component {
 
     //Have to call this.state.count to reference this object, this state.
     // Can write any expression in the curly braces
+  }
+
+  getBadgeClasses() {
+    let classes = "badge m-2 badge-";
+    classes += this.state.count === 0 ? "warning" : "primary";
+    return classes;
   }
 }
 
