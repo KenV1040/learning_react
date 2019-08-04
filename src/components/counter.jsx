@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+//TODO: Make sure you fix the security vulnerability with npm audit.
 class Counter extends Component {
   state = {
     count: 0
