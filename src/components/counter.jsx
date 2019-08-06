@@ -10,47 +10,25 @@ class Counter extends Component {
     imageUrl: "https://picsum.photos/200",
     tags: ["tag1", "tag2", "tag3"]
   };
-
-  formatCount() {
-    //When you see this.state.count repeated, it's a perfect opportunity to use object destructuring
-    //return this.state.count === 0 ? "Zero" : this.state.count;
-
-    //this destructures the count property by picking the count object from this.state, and storing it in count.
-    const { count } = this.state;
-    //We can also return a jsx here instead of a string. Since jsx will be compiled through babel and turned into a react element
-    //return count === 0 ? <h1>Zero</h1> :  count;
-    //Get used to jsx, it's just like any other objects out there now. So you can return it, use it as a constant, etc
-
-    return count === 0 ? "Zero" : count;
+  //To add conditional rendering, you can add a helper function,like blow.
+  renderTags() {
+    if (this.state.tags.length === 0) return <p>There are no tags!</p>;
+    return (
+      <ul>
+        {this.state.tags.map(tag => (
+          <li key={tag}>{tag}</li>
+        ))}
+      </ul>
+    );
   }
-
+  //Else, inside the render function, add a {ifstatement && "return render state here"}
   render() {
-    //js automatically inserts a ; if you simply type return.
-    //So what js will see is return ; if you dont have anything in front of it
     return (
       <div>
-        <img src={this.state.imageUrl} alt="" />
-        <span className={this.getBadgeClasses}>{this.formatCount()}</span>
-        <button className="btn btn-secondary btn-sm">Increment</button>
-        <ul>
-          {this.state.tags.map(tag => (
-            <li key={tag}>{tag}</li>
-          ))}
-        </ul>
+        {this.state.tags.length > 0 && "There are more than 0 tags"}
+        {this.renderTags()}
       </div>
     );
-    //In attirbutes of a jsx element above, you can't use class since it's reserved. You use className.
-    //Also, badge and badge-primary is a bootstrap class. m-2 is a margin class with 2 (pixels?)
-    //Use classes for better performance and maintainability.
-
-    //Have to call this.state.count to reference this object, this state.
-    // Can write any expression in the curly braces
-  }
-
-  getBadgeClasses() {
-    let classes = "badge m-2 badge-";
-    classes += this.state.count === 0 ? "warning" : "primary";
-    return classes;
   }
 }
 
