@@ -16,21 +16,41 @@ class Counter extends Component {
     return count === 0 ? "Zero" : count;
   }
 
+  /*
+  //Start of bind method. Define constructor
+  constructor(props) {
+    //Calls at the start of creation of object
+    super(props);
+    //At this point, you have access to count
+    //Now call bind method
+    this.handleIncrement = this.handleIncrement.bind(this);
+  }
+
+  */
   handleIncrement() {
     //Currently, we don't have access to the state property
     //If you print out 'this', then you'll get undefined
-    console.log("Incremented", this);
-  }
 
+    //Depending on how an object is called, this can reference difference objects.
+    console.log("Incremented", this);
+    //If it was called by object.method, then it would always return a reference to that object
+    //If called by function(), returns a reference to window object, however, if strict mode is on, it returns undefined.
+    //Use the bind method to solve this problem
+  }
+  //There is another way, instead of binding. Currently experimental
+  //You can use this arrow function call to bind instead of calling the bind method
+  handleIncrementv2 = () => {
+    console.log("Incremented", this);
+    this.setState({ count: this.state.count + 1 });
+  };
   render() {
     //Note, in the onClick, we are simply referencing handleIncrement (Basically means no () at the end)
     //onClick is also case sensitive
     return (
       <div>
-        <img src={this.state.imageUrl} alt="" />
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
-          onClick={this.handleIncrement}
+          onClick={this.handleIncrementv2}
           className="btn btn-secondary btn-sm"
         >
           Increment
