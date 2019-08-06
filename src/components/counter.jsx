@@ -1,34 +1,53 @@
 import React, { Component } from "react";
-//TODO: Make sure you fix the security vulnerability with npm audit.
+
 class Counter extends Component {
   state = {
     count: 0,
-    //State can include complex variables like below.
+
     /* address: {
           street: ''
       } */
     imageUrl: "https://picsum.photos/200",
     tags: ["tag1", "tag2", "tag3"]
   };
-  //To add conditional rendering, you can add a helper function,like blow.
-  renderTags() {
-    if (this.state.tags.length === 0) return <p>There are no tags!</p>;
-    return (
-      <ul>
-        {this.state.tags.map(tag => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    );
+  formatCount() {
+    const { count } = this.state;
+
+    return count === 0 ? "Zero" : count;
   }
-  //Else, inside the render function, add a {ifstatement && "return render state here"}
+
+  handleIncrement() {
+    //Currently, we don't have access to the state property
+    //If you print out 'this', then you'll get undefined
+    console.log("Incremented", this);
+  }
+
   render() {
+    //Note, in the onClick, we are simply referencing handleIncrement (Basically means no () at the end)
+    //onClick is also case sensitive
     return (
       <div>
-        {this.state.tags.length > 0 && "There are more than 0 tags"}
-        {this.renderTags()}
+        <img src={this.state.imageUrl} alt="" />
+        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-secondary btn-sm"
+        >
+          Increment
+        </button>
+        <ul>
+          {this.state.tags.map(tag => (
+            <li key={tag}>{tag}</li>
+          ))}
+        </ul>
       </div>
     );
+  }
+
+  getBadgeClasses() {
+    let classes = "badge m-2 badge-";
+    classes += this.state.count === 0 ? "warning" : "primary";
+    return classes;
   }
 }
 
