@@ -2,6 +2,11 @@ import React from "react";
 import Counter from "./counter.jsx";
 /* class Counters extends Component {
   //IMPORTANT rule. The component that owns a piece of the state, should be the one modifying it.
+  
+  //Also, in a class, you can object destrucure the this.props as well
+  //Simply just do:
+  //const {onIncrement} = this.props;
+  //Now when calling onIncrement, you never have to do this.props
   render() {
     //Key will not be passed as a property (props) to Counter since it's a special property
     console.log("onReset", this.props.onReset);
