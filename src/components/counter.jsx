@@ -6,10 +6,6 @@ class Counter extends Component {
     return value === 0 ? "Zero" : value;
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     //Note, in the onClick, we are simply referencing handleIncrement (Basically means no () at the end)
     //onClick is also case sensitive
